@@ -41,7 +41,7 @@
  SELECT f_geography_column,coord_dimension,srid, type FROM geography_columns WHERE f_table_name = 'tb_dbagebscdmx';
 
  Para generar nuestro ORM
- sqlacodegen postgresql://postgres:postgres@localhost/dbagebsyucatan --outfile dbagebsyucatan.py
+ sqlacodegen postgresql://usuario:clave@localhost/dbagebsyucatan --outfile dbagebsyucatan.py
 
  Ejemplo de consulta con PostGIS
  SELECT nombre_de_la_unidad_economica,codigo_postal FROM denue WHERE ST_Intersects(the_geom, ST_GeomFromText('POLYGON ((-99.05746600000001 19.388907, -99.054934 19.387227, -99.055148 19.389686, -99.05746600000001 19.388907))',4326));
