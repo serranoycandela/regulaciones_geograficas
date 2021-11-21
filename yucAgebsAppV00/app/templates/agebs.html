@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block container %}
+var user = JSON.parse('{{ user | tojson | safe}}');
+var gato = JSON.parse('{{ gato | tojson | safe}}');
+
+{% endblock %}

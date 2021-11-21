@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Draw Polygon</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+    <script src="static/Leaflet.draw/src/Leaflet.draw.js"></script>
+    <script src="static/Leaflet.draw/src/Leaflet.Draw.Event.js"></script>
+    <link rel="stylesheet" href="static/Leaflet.draw/src/leaflet.draw.css"/>
+
+    <script src="static/Leaflet.draw/src/Toolbar.js"></script>
+    <script src="static/Leaflet.draw/src/Tooltip.js"></script>
+
+    <script src="static/Leaflet.draw/src/ext/GeometryUtil.js"></script>
+    <script src="static/Leaflet.draw/src/ext/LatLngUtil.js"></script>
+    <script src="static/Leaflet.draw/src/ext/LineUtil.Intersect.js"></script>
+    <script src="static/Leaflet.draw/src/ext/Polygon.Intersect.js"></script>
+    <script src="static/Leaflet.draw/src/ext/Polyline.Intersect.js"></script>
+    <script src="static/Leaflet.draw/src/ext/TouchEvents.js"></script>
+
+    <script src="static/Leaflet.draw/src/draw/DrawToolbar.js"></script>
+    <script src="static/Leaflet.draw/src/draw/handler/Draw.Feature.js"></script>
+    <script src="static/Leaflet.draw/src/draw/handler/Draw.SimpleShape.js"></script>
+    <script src="static/Leaflet.draw/src/draw/handler/Draw.Polyline.js"></script>
+    <script src="static/Leaflet.draw/src/draw/handler/Draw.Marker.js"></script>
+    <script src="static/Leaflet.draw/src/draw/handler/Draw.Circle.js"></script>
+    <script src="static/Leaflet.draw/src/draw/handler/Draw.CircleMarker.js"></script>
+    <script src="static/Leaflet.draw/src/draw/handler/Draw.Polygon.js"></script>
+    <script src="static/Leaflet.draw/src/draw/handler/Draw.Rectangle.js"></script>
+
+
+    <script src="static/Leaflet.draw/src/edit/EditToolbar.js"></script>
+    <script src="static/Leaflet.draw/src/edit/handler/EditToolbar.Edit.js"></script>
+    <script src="static/Leaflet.draw/src/edit/handler/EditToolbar.Delete.js"></script>
+
+    <script src="static/Leaflet.draw/src/Control.Draw.js"></script>
+
+    <script src="static/Leaflet.draw/src/edit/handler/Edit.Poly.js"></script>
+    <script src="static/Leaflet.draw/src/edit/handler/Edit.SimpleShape.js"></script>
+    <script src="static/Leaflet.draw/src/edit/handler/Edit.Rectangle.js"></script>
+    <script src="static/Leaflet.draw/src/edit/handler/Edit.Marker.js"></script>
+    <script src="static/Leaflet.draw/src/edit/handler/Edit.CircleMarker.js"></script>
+    <script src="static/Leaflet.draw/src/edit/handler/Edit.Circle.js"></script>
+
+</head>
+
+<style media="screen">
+html, body {
+height: 100%;
+}
+#map {
+height: 100%;
+}
+
+</style>
+<body>
+  <div id="map"></div>
+
+  <form action="/dibuja_poligono" method="post">
+      <button name="demo_btn" id="demo_btn" type="submit">Forward</button>
+  </form>
+
+
+  <script type="text/javascript">
+
+  // center of the map
+  var center = [19.388866,-99.05543];
+
+  // Create the map
+  var map = L.map('map').setView(center, 14);
+
+  // Set up the OSM layer
+  L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>',
+      maxZoom: 18
+    }).addTo(map);
+
+  // add a marker in the given location
+  L.marker(center).addTo(map);
+
+  // Initialise the FeatureGroup to store editable layers
+  var editableLayers = new L.FeatureGroup();
+  map.addLayer(editableLayers);
+
+  var drawPluginOptions = {
+    position: 'topright',
+    draw: {
+      polygon: {
+        allowIntersection: false, // Restricts shapes to simple polygons
+        drawError: {
+          color: '#e1e100', // Color the shape will turn when intersects
+          message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
+        },
+        shapeOptions: {
+          color: '#97009c'
+        }
+      },
+      // disable toolbar item by setting it to false
+      polyline: false,
+      circle: false, // Turns off this drawing tool
+      rectangle: false,
+      marker: false,
+      },
+    edit: {
+      featureGroup: editableLayers, //REQUIRED!!
+      remove: false
+    }
+  };
+
+  // Initialise the draw control and pass it the FeatureGroup of editable layers
+  var drawControl = new L.Control.Draw(drawPluginOptions);
+  map.addControl(drawControl);
+
+  var editableLayers = new L.FeatureGroup();
+  map.addLayer(editableLayers);
+  map.on('draw:created', function(e) {
+    var type = e.layerType,
+      layer = e.layer;
+
+    if (type === 'marker') {
+      layer.bindPopup('A popup!');
+    }
+
+    editableLayers.addLayer(layer);
+
+    var geojson= layer.toGeoJSON()
+
+    var array_geometry=geojson.geometry.coordinates
+    console.log(array_geometry);
+
+
+        $("#demo_btn").on("click", function() {
+            var js_data = JSON.stringify({'type': 'Polygon','coordinates': array_geometry});
+            $.ajax({
+                url: "{{ url_for("dibuja_poligono") }}",
+                type : 'post',
+                contentType: 'application/json',
+                dataType : 'json',
+                data : js_data,
+                success: function(response) {
+                  console.log(response);
+                },
+                error: function(err) {
+                  console.log(err);
+                }
+            })
+        });
+
+
+  });
+
+  </script>
+<script type="text/javascript">
+  {% block container %} {% endblock %}
+</script>
+
+
+</body>
+</html>
