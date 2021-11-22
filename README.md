@@ -60,7 +60,7 @@ cd yucAgebsAppRest
 python3 app.py
 ```
 
-Esto expondra un API en el puerto 4000, se puede comprobar su funcionamiento con:
+Esto expondrá un API en el puerto 4000, se puede comprobar su funcionamiento con:
 
 ```
 localhost:4000/fomix/api/v0.1/municipios/coneval/2010/nopob_novul
