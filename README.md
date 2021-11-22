@@ -81,4 +81,4 @@ http://127.0.0.1:5000/inicio
 
 
 
-<img src="client.png" width="600px">
+<img src="client.png" width="750px">
