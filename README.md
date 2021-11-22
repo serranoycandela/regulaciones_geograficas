@@ -56,6 +56,7 @@ pip3 install requirements.txt
 Para activar el servicio REST que calcula las intersecciones y devuelve un geojson:
 
 ```
+source venv/bin/activate
 cd yucAgebsAppRest
 python3 app.py
 ```
@@ -68,9 +69,10 @@ localhost:4000/fomix/api/v0.1/municipios/coneval/2010/nopob_novul
 
 ## Activar el app del cliente para browser
 
-Para iniciar la aplicación que consumirá el servicio REST, en una nueva consola entrar a la carpeta yucAgebsAppV00 y correr app.py:
+Para iniciar la aplicación que consumirá el servicio REST, en una nueva consola, activar el ambiente virtual, entrar a la carpeta yucAgebsAppV00 y correr app.py:
 
 ```
+source venv/bin/activate
 cd yucAgebsAppV00
 python3 app.py
 ```
