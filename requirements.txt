@@ -1,0 +1,6 @@
+flask
+flask_cors
+sqlalchemy
+geoalchemy2
+shapely
+geopandas

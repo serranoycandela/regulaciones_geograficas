@@ -1,76 +1,78 @@
-# Servicio REST de información geográfica
+# Instalación
 
-Se desarrolla una aplicación  REST(Representational State Transfer) en el framework Flask de Python que sirve datos geográficos en formato GeoJSON. Usamos el ORM GeoAlchemy.
+## Configuración de la base de datos
 
-La aplicación sirve datos a nivel ageb y municipio para el estado de Yucatán. Para el nivel de ageb, el cliente envía en la petición al servidor un campo en el que especifica el las geometría de un poligono de interés. El servidos regresa la los agebs que hacen intersección con la geometría de polígono así como infomación relacionada con el porcentaje del area de intersección. Un ejemplo de solicitud es la siguiente:
+Instalar postgres y postgis:
 
 ```
-localhost:4000/fomix/api/v0.1/interseccion/POLYGON ((-99.05746600000001 19.388907, -99.054934 19.387227, -99.055148 19.389686, -99.05746600000001 19.388907))
+sudo apt install postgresql postgresql-contrib
+sudo apt install postgis postgresql-14-postgis-3
 ```
-Para el caso de datos a nivel municipal, el campo de la solicitud es algún indicador particular (e.g., indicadores de rezago social) y el año. Por ejemplo
+Posteriormente entrar a psql como el usuario postgres:
+
+```
+sudo -i -u postgres
+psql
+```
+
+Y crear un nuevo usuariocon su respectiva contraseña:
+
+```
+CREATE ROLE fidel LOGIN SUPERUSER PASSWORD 'x';
+```
+
+Para crear la base de datos entrar a psql o PGAdmin con el usuario recien creado y correr el siguiente código SQL:
+
+```
+CREATE DATABASE dbagebsyucatan;
+```
+
+El paso siguiente es subir los datos de un shapefile y dos csvs, para lo cual en PGadmin conectarse a la base de datos dbagebsyucatan con el usuario recien creado, abrir la herramienta de query y cargar y correr los siguientes archivos con código sql:
+
+yucAgebsAppRest/data/yucAgebs/dbagebsyucatan.sql
+yucAgebsAppRest/data/yucConevalMun/yuc_coneval.sql
+yucAgebsAppRest/data/yucMunicipios/tbmuninicipiosyucatan.sql
+
+## Instalación de bibliotecas de python
+
+En caso de haber creado un ambiente virtual de python primero hay que activar el ambiente virtual con el siguiente comando:
+
+```
+source venv/bin/activate
+```
+
+Para instalar las bibliotecas necesarias para esta aplicación correr el siguiente comando:
+
+```
+pip3 install reuirements.txt
+```
+
+
+
+## Activar el servicio REST
+
+Para activar el servicio REST que calcula las intersecciones y devuelve un geojson:
+
+```
+cd yucAgebsAppRest
+python3 app.py
+```
+
+Esto expondra un API en el puerto 4000, se puede comprobar su funcionamiento con:
 
 ```
 localhost:4000/fomix/api/v0.1/municipios/coneval/2010/nopob_novul
 ```
-## Configuación de la base de datos 
 
-El manejador de bases de datos que se utiliza el Postgres y su extención PostGIS, que nos permite realizar consultas geográficas. 
+## Activar el app del cliente para browser
 
- Creamos  la base de datos ```dbagebsyucatan```
-
-```
- CREATE DATABASE dbagebsyucatan;
-```
-
- Incorporamos la extensión PostGIS
+Para iniciar la aplicación que consumirá el servicio REST, en una nueva consola entrar a la carpeta yucAgebsAppV00 y correr app.py:
 
 ```
- CREATE EXTENSION  postgis;
-```
-Usamos el comando ```shp2pgsql``` para generar el archivo SQL del shapefile de los agebs de Yucatán. Podemos usar a opción -G para generar una tabla espacial de PostGIS que use el tipo geography y -I para generar el índice espacial de la columna geometric:
-
-```
- shp2pgsql -G -I 31a.shp tb_dbagebsyucatan > dbagebsyucatan.sql
+cd yucAgebsAppV00
+python3 app.py
 ```
 
- Para generar la tabla espacial con el tipo geometry en vez de geography, y para que la columna de geometric se llame ```the_geom```
-, usamos el comando:
+Para usar la aplicación abrir el siguiente url en un navegador:
 
-```
- shp2pgsql -I -g the_geom  31a.shp tb_dbagebsyucatan > dbagebsyucatan.sql
-```
-
- Para agregar el sistema de referencia usamos la opción -s. El siguiente comando es el que finalmente utilizamos:
- 
-```
- shp2pgsql -I -s 4326  31a.shp tb_dbagebsyucatan > dbagebsyucatan.sql
-```
-
- Si está interesado en las distintas opciones del comando shp2pgsql vea la liga https://manpages.debian.org/stretch/postgis/shp2pgsql.1.en.html
-
- Se ejecuta  el script:
-
-```
- psql -U postgres -d dbagebsyucatan -a -f dbagebsyucatan.sql
-```
-
- Para generar nuestro ORM de ORM GeoAlchemy, usamos el siguiente comando :
- 
-```
-  sqlacodegen postgresql://usuario:clave@localhost/dbagebsyucatan --outfile dbagebsyucatan.py
-```
-Repetimos los mismos paso para el shapefile de municipios.
-
-Creamos la tabla que albergará los datos de rezago social a nivel municipal
-
-```
-CREATE TABLE tb_yuc_coneval
-(
-  cvegeo VARCHAR(5),
-  anio integer,
-  indicador VARCHAR(100),
-  valor_indicador double precision
-  );
-
-  \copy tb_yuc_coneval(cvegeo,anio,indicador,valor_indicador) FROM '/tmp/yuc_coneval_10_15.csv' DELIMITERS ',' CSV HEADER;
-```
+http://127.0.0.1:5000/inicio
