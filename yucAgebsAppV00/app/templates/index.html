@@ -84,14 +84,10 @@ height: 100%;
       <div class="sidebar-tabs">
           <ul role="tablist">
               <li><a href="/inicio" role="tab" target="_blank"><i class="fa fa-home fa-fw"></i> Home</a></li>
-              <li><a href="#home" role="tab"><i class="fa fa-bars"></i></a></li>
-              <li><a href="#profile" role="tab"><i class="fa fa-user"></i></a></li>
-              <li><a href="#upload" role="tab"><i class="fa fa-upload"></i></a></li>
-              <li><a href="#download" role="tab"><i class="fa fa-download"></i></a></li>
-              <li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>
-              <li><a href="#graficas" role="tab"><i class="fa fa-photo"></i></a></li>
-              <li><a href="#indicadores" role="tab"><i class="fa fa-database"></i></a></li>
-              <li><a href="https://github.com/Turbo87/sidebar-v2" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
+              
+              <li><a href="#lineamientos" role="tab"><i class="fa fa-photo"></i></a></li>
+
+              <li><a href="https://github.com/serranoycandela/yucAgebs" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>
           </ul>
           <ul role="tablist">
               <li><a href="#settings" role="tab"><i class="fa fa-gear"></i></a></li>
@@ -100,106 +96,12 @@ height: 100%;
 
       <!-- Tab panes -->
       <div class="sidebar-content">
-          <div class="sidebar-pane" id="home">
-              <h1 class="sidebar-header">
-                  sidebar-v2
-                  <span class="sidebar-close"><i class="fa fa-caret-left"></i></span>
-              </h1>
 
-              <p>A responsive sidebar for mapping libraries like <a href="http://leafletjs.com/">Leaflet</a> or <a href="http://openlayers.org/">OpenLayers</a>.</p>
-
-              <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-              <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-              <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-              <p class="lorem">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-          </div>
-
-          <div class="sidebar-pane" id="profile">
-              <h1 class="sidebar-header">Profile<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-          </div>
-          <div class="sidebar-pane" id="upload">
-              <h1 class="sidebar-header">Subir archivo geojson<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-
-              <br>
-              <p> Suba un archivo .geojson para obtener las intersecciones con las agebs.</p>
-
-
-              <form  action="getfile" method="POST" enctype="multipart/form-data">
-                <p>Custom file:</p>
-                <div class="custom-file mb-3">
-                  <input type="file"  name="myfile"  id="myfile"  class="custom-file-input">
-                  <label class="custom-file-label" for="customFile">Choose file</label>
-                </div>
-                <div class="mt-3">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-
-          </div>
-          <div class="sidebar-pane" id="download">
-              <h1 class="sidebar-header">Descargar archivo geojson<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-              <br>
-              <p> Descargue el archivo .geojson de la intersección del poligono con las agebs.</p>
-
-              <button type="button" value="Export to file" id="btnExport" class="btn btn-primary">
-                <span class="spinner-grow spinner-grow-sm"></span>
-                Descargue el archivo
-              </button>
-          </div>
-          <div class="sidebar-pane" id="messages">
-              <h1 class="sidebar-header">Messages<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-          </div>
-          <div class="sidebar-pane" id="graficas">
-              <h1 class="sidebar-header">Gráficas<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
+          <div class="sidebar-pane" id="lineamientos">
+              <h1 class="sidebar-header">Consulta por polígono<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
               	<div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
           </div>
-          <div class="sidebar-pane" id="indicadores">
-              <h1 class="sidebar-header">indicadores<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-
-              <div class="form-group">
-                <br>
-                <h5>Indicadores de rezago social:</h5>
-                <!--Si agregamos a onchange "estiloSelect()" aplicará esa función a cada cambio en el dropdown
-                <!--<select class="form-control" id="estilo" onchange="estiloSelect()">-->
-                <select class="form-control" id="estilo" onchange="estiloSelect()">
-                  <option selected>Open this select menu</option>
-                  <option value="pobreza">Porcentaje de población  en situación de pobreza</option>
-                  <option value="pobreza_moderada">Porcentaje de población  en situación de pobreza moderada</option>
-                  <option value="pobreza_extrema">Porcentaje de población  en situación de pobreza extrema</option>
-                  <option value="vul_car_soc">Porcentaje de población  vulnerable por carencias sociales</option>
-                  <option value="vul_ingresos">Porcentaje de población  vulnerable por ingresos</option>
-                  <option value="nopob_novul">Porcentaje de población  no pobre y no vulnerable</option>
-                  <option value="una_car_soc">Porcentaje de población con al menos una carencia social</option>
-                  <option value="tres_car_soc">Porcentaje de población con almenos tres carencias sociales</option>
-                  <option value="car_rez_educativo">Porcentaje de población con carencia por rezago educativo</option>
-                  <option value="car_serv_salud">Porcentaje de población con carencia por acceso a los servicios de salud</option>
-                  <option value="car_seg_social">Porcentaje de población con carencia por acceso a la seguridad social</option>
-                  <option value="car_vivienda">Porcentaje de población con carencia por calidad y espacios de la vivienda</option>
-                  <option value="car_serv_basicos">Porcentaje de población con carencia por acceso a los servicios básicos en la vivienda</option>
-                  <option value="car_alimentacion">Porcentaje de población con carencia por acceso a la alimentación</option>
-                  <option value="ingreso_if_lb">Porcentaje de población con ingreso inferior a la línea de bienestar</option>
-                  <option value="ingreso_if_lbminimo">Porcentaje de población con ingreso inferior a la línea de bienestar mínimo</option>
-                  <option value="gini">Coeficiente de Gini</option>
-                </select>
-              </div>
-              <div class="d-flex justify-content-center my-4">
-                <form class="range-field w-75">
-                  <input id="slider11" class="custom-range" type="range" min="2010" max="2015" value="2010" step="5"/>
-                </form>
-                <span class="font-weight-bold text-primary ml-2 mt-1 valueSpan"></span>
-              </div>
-
-              <button type="button" value="Limpiar capas" id="btnLimpiaCapas" class="btn btn-primary">
-                <span class="mt-3"></span>
-                Remover capas
-              </button>
-          </div>
-          <div class="sidebar-pane" id="settings">
-              <h1 class="sidebar-header">Settings<span class="sidebar-close"><i class="fa fa-caret-left"></i></span></h1>
-          </div>
+          
       </div>
   </div>
 
@@ -243,12 +145,6 @@ height: 100%;
   // add a marker in the given location
   L.marker(center).addTo(map);
 
-  // Generamos un grupo para agregar las capas de Municipio
-  var MunicipioLayer = L.layerGroup().addTo(map);
-
-  //Posición de la leyenda del heatmap
-  var legend = L.control({position: 'bottomleft'});
-
   // Initialise the FeatureGroup to store editable layers
   var editableLayers = new L.FeatureGroup();
   map.addLayer(editableLayers);
@@ -271,11 +167,7 @@ height: 100%;
       circle: false, // Turns off this drawing tool
       rectangle: true,
       marker: true,
-      },
-    edit: {
-      featureGroup: editableLayers, //REQUIRED!!
-      remove: true
-    }
+      }
   };
 
   // Initialise the draw control and pass it the FeatureGroup of editable layers
@@ -310,26 +202,7 @@ height: 100%;
         mode: "cors"
     }
 
-    function GetData() {
-
-      fetch(uri,initDetails)
-        .then(resp => resp.blob())
-        .then(blob => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.style.display = 'none';
-          a.href = url;
-          // Nombre del archivo
-          a.download = 'interseccion-agebs.geojson';
-          document.body.appendChild(a);
-          a.click();
-          window.URL.revokeObjectURL(url);
-          alert('El archivo ha sido descargado');
-        })
-        .catch(() => alert('El archivo no pudo ser descargado'));
-    }
-
-    document.getElementById('btnExport').onclick=GetData;
+    
 
     // Cargamos el GeoJSON del servicio REST
     $.getJSON(url, function(data) {
@@ -346,8 +219,7 @@ height: 100%;
     		this._div.innerHTML = '<h4>Información de UGA</h4>' +  (props ?
     			'<b>' +'Clave de UGA: '+'</b>' +  props.clave_uga  +'<br> <b>Área: </b>'+ props.area+' m<sup>2</sup><br>'+
           '<b>Área de intersección: </b>'+ props.area_interseccion+ ' m<sup>2</sup><br>'+
-          '<b>Porcentaje de intersección: </b>'+props.porcentaje_interseccion + ' %<br>'+
-          '<b>Lineamientos: </b>'+props.lineamiento_uga
+          '<b>Porcentaje de intersección: </b>'+props.porcentaje_interseccion + ' %<br>'
     			: 'Coloque el cursor sobre la UGA');
     	};
 
@@ -388,176 +260,24 @@ height: 100%;
       		});
       	}
         // L.geoJson function is used to parse geojson file and load on to map
-        var geojson= L.geoJson(data, {
-      onEachFeature: onEachFeature
-  }).addTo(map);
+        var geojson= L.geoJson(data, {onEachFeature: onEachFeature}).addTo(map);
 
-  var geoObject = JSON.parse(JSON.stringify(data));
+        var geoObject = JSON.parse(JSON.stringify(data));
 
 
-  var limite = Number(geoObject.features.length);
+        var limite = Number(geoObject.features.length);
 
-  var x = [];
-  for (var i = 0; i < limite; i ++) {
-    x[i] = geoObject.features[i].properties.area;
-  }
-
-  var data = [
-    {
-      x: x,
-      type: 'histogram',
-  	marker: {
-      color: 'pink',
-  	},
-    }
-  ];
-
-  Plotly.newPlot('myDiv', data);
-  var update = {
-    width: 400,  // or any new width
-    height: 600  // " "
-  };
-
-  Plotly.relayout('myDiv', update);
+        var html_interseccion = "<br>Al polígono le aplican las siguientes UGAS<br>";
+        for (var i = 0; i < limite; i ++) {
+          html_interseccion += "<br><b>Clave UGA: </b>"+ geoObject.features[i].properties.clave_uga;
+          html_interseccion += "<br><b>Área de intersección: </b>"+ geoObject.features[i].properties.area;
+          html_interseccion += "<br><b>Lineamientos: </b>"+geoObject.features[i].properties.lineamiento_uga+"<br>";
+        }
+        document.getElementById('myDiv').innerHTML=html_interseccion;
 
     });
 
   });
-
-  // Metodo de infomación de la capa geografica a nivel Municipio, utilizando las propiedades del GeoJSON
-  var info = L.control();
-  info.onAdd = function (map) {
-      this._div = L.DomUtil.create('div', 'info');
-      this.update();
-      return this._div;
-  };
-
-  info.update = function (props) {
-      this._div.innerHTML = '<h4>Nombre del Municipio</h4>' + (props ?
-              '<b>' + props.cvegeo + '<br>' + props.indicador+': ' + '<b>' + parseInt((props.valor_indicador)) + '</sup>'
-              : 'Pasar el mouse sobre el Municipio');
-  };
-
-  info.addTo(map);
-
-  var rangeInput = document.getElementById("slider11");
-  rangeInput.addEventListener('mouseup', function() {
-    var url_basico = "http://127.0.0.1:4000/fomix/api/v0.1/municipios/coneval"
-    var url_consulta = url_basico + "/"+this.value+"/"+document.getElementById("estilo").value;
-    console.log(url_consulta);
-
-  });
-
-
-  function RemueveCapas() {
-    MunicipioLayer.clearLayers();
-  }
-
-  document.getElementById('btnLimpiaCapas').onclick=RemueveCapas;
-  
-  function estiloSelect() {
-		var miSelect = document.getElementById("estilo").value;
-    var url_basico = "http://127.0.0.1:4000/fomix/api/v0.1/municipios/coneval"
-    var url_consulta = url_basico + "/"+document.getElementById("slider11").value +"/"+miSelect;
-    console.log(url_consulta);
-
-    MunicipioLayer.clearLayers();
-
-    // loading GeoJSON file - Here my html and usa_adm.geojson file resides in same folder
-    $.getJSON(url_consulta, function(data) {
-
-      // Guardamos en un arrreglo los cuantiles de las variables
-      var misQuantiles=myBundle.miQuantile(data,'valor_indicador')
-      console.log(misQuantiles);
-      // Representación de la simbologia
-      function getColor(d) {
-          return d > misQuantiles[3] ? '#800026' :
-                  d > misQuantiles[2] ? '#BD0026' :
-                  d > misQuantiles[1] ? '#FC4E2A' :
-                  d > misQuantiles[0] ? '#FED976' :
-                  '#FFEDA0';
-      }
-
-      function style(feature) {
-          return {
-              weight: 2.5,
-              opacity: 1.5,
-              color: 'white',
-              dashArray: '3',
-              fillOpacity: 0.85,
-              fillColor: getColor(feature.properties.valor_indicador)
-          };
-      }
-
-      function highlightFeature(e) {
-          var layer = e.target;
-
-          layer.setStyle({
-              weight: 5,
-              color: '#666',
-              dashArray: '',
-              fillOpacity: 0.7
-          });
-
-          if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-              layer.bringToFront();
-          }
-
-          info.update(layer.feature.properties);
-      }
-
-
-      function resetHighlight(e) {
-          geojson.resetStyle(e.target);
-          info.update();
-      }
-
-      function zoomToFeature(e) {
-          map.fitBounds(e.target.getBounds());
-      }
-
-      function onEachFeature(feature, layer) {
-          layer.on({
-              mouseover: highlightFeature,
-              mouseout: resetHighlight,
-              click: zoomToFeature
-          });
-      }
-      //Capa Json a cargar, statesData: es la variable que carga el archivo json, esta se encuentra dentro del archivo ref.js
-      var geojson = L.geoJson(data, {
-          style: style,
-          onEachFeature: onEachFeature
-      });
-
-  		MunicipioLayer.addLayer(geojson);
-
-    //Simgología mostrada
-    legend.onAdd = function (map) {
-
-    var gradesArray=[0];
-    gradesArray=gradesArray.concat(misQuantiles);
-      var div = L.DomUtil.create('div', 'info legend'),
-              grades = gradesArray,
-              labels = [],
-              from, to;
-
-      for (var i = 0; i < grades.length; i++) {
-          from = parseInt(grades[i]);
-          to = parseInt(grades[i + 1]);
-
-          labels.push(
-                  '<i style="background:' + getColor(from + 1) + '"></i> ' +
-                  parseInt(from) + (parseInt(to) ? '&ndash;' + parseInt(to) : '+'));
-      }
-
-      div.innerHTML = labels.join('<br>');
-      return div;
-    };
-    legend.addTo(map);
-    });
-	}
-
-
 
 
   var sidebar = L.control.sidebar('sidebar', {position: 'left'}).addTo(map);

@@ -27,13 +27,13 @@ Para crear la base de datos entrar a psql o PGAdmin con el usuario recien creado
 CREATE DATABASE dbagebsyucatan;
 ```
 
-El paso siguiente es subir los datos de un shapefile y dos csvs, para lo cual en PGadmin conectarse a la base de datos dbagebsyucatan con el usuario recien creado, abrir la herramienta de query y cargar y correr los siguientes archivos con código sql:
+El paso siguiente es subir los datos de un shapefile en PGadmin, para lo cual se puede abrir en QGIS la capa geográfica:
 
-yucAgebsAppRest/data/yucAgebs/dbagebsyucatan.sql
+```
+yucAgebsAppRest/data/yucMunicipios/ugas.geojson
+```
 
-yucAgebsAppRest/data/yucConevalMun/yuc_coneval.sql
-
-yucAgebsAppRest/data/yucMunicipios/tbmuninicipiosyucatan.sql
+Conectarse a Postgis con el usuario 
 
 ## Instalación de bibliotecas de python
 
