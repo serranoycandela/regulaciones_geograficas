@@ -44,12 +44,12 @@ def interseccion(poligono):
         poligono = json.loads(poligono)
 
         # Realizamos la consulta con geoalchemy2
-        query= session.query(TbDbagebsyucatan).filter(TbDbagebsyucatan.geom.ST_Intersects(WKTElement(str(shape(poligono)), srid=4326)))
+        query= session.query(UgasLineamiento).filter(UgasLineamiento.geom.ST_Intersects(WKTElement(str(shape(poligono)), srid=4326)))
 
         # Iteramos sobre los agebs que hace intersección el polígono recibido
         for unidad in query:
             # Imprimimos la cvegeo y la clave de la ageb
-            print(unidad.cvegeo+"  "+unidad.cve_ageb)
+            print(unidad.clave_uga, unidad.lineamiento_uga)
             # Imprimimos el área del ageb
             #print(session.scalar(unidad.geom.ST_Transform(4486).ST_Area()))
             # Geometría de la intersección de polígono de entrada con el ageb
@@ -57,22 +57,26 @@ def interseccion(poligono):
             #area_interseccion=session.scalar(select([func.ST_Area(func.ST_Transform(WKTElement(str(to_shape(session.scalar(unidad.geom.ST_Intersection(WKTElement(str(shape(poligono)), srid=4326))))),srid=4326),4486))]))
             #print(str(area_interseccion/session.scalar(unidad.geom.ST_Transform(4486).ST_Area())))
         # Convertimos la geometría de los agebs y los almacenamos en un diccionario
-        geoms = {ageb.cvegeo:shapely.geometry.geo.mapping(to_shape(ageb.geom)) for ageb in query}
+        geoms = {uga.id_uga:shapely.geometry.geo.mapping(to_shape(uga.geom)) for uga in query}
 
         # Iteramos sobre la consulta de las intersecciones del polígono con las agebs para generar un diccionario,
         # el cual se regresará en formato geojson en la consulta REST
-        agebs = [{"type": "Feature",
-            "properties":{"cvegeo":ageb.cvegeo,
-                          "area":round(area_poligono(ageb),2),
-                          "area_interseccion": round(area_interseccion(ageb, poligono),2),
-                          "porcentaje_interseccion": round((area_interseccion(ageb, poligono)/area_poligono(ageb))*100,4)
+        ugas = [{"type": "Feature",
+            "properties":{"clave_uga":uga.clave_uga,
+                          "lineamiento_uga":uga.lineamiento_uga,
+                          "area":round(area_poligono(uga),2),
+                          "area_interseccion": round(area_interseccion(uga, poligono),2),
+                          "porcentaje_interseccion": round((area_interseccion(uga, poligono)/area_poligono(uga))*100,4)
                           },
             "geometry":{"type":"MultiPolygon",
-            "coordinates":geoms[ageb.cvegeo]["coordinates"]},
-            } for ageb in query]
+            "coordinates":geoms[uga.id_uga]["coordinates"]},
+            } for uga in query]
 
 
-        return jsonify({"type": "FeatureCollection","features":agebs})
+        return jsonify({"type": "FeatureCollection","features":ugas})
+
+
+
 @app.route('/fomix/api/v0.1/municipios/coneval/<anio>/<indicador>', methods=['GET'])
 def municipios(anio,indicador):
         # Realizamos una consulta de la cvegeo y la geometría de los municipios de Yucatán

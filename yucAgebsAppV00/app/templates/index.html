@@ -343,11 +343,12 @@ height: 100%;
     	};
 
     	info.update = function (props) {
-    		this._div.innerHTML = '<h4>Información de AGEB</h4>' +  (props ?
-    			'<b>' +'CVEGEO: '+'</b>' +  props.cvegeo  +'<br> <b>Área: </b>'+ props.area+' m<sup>2</sup><br>'+
+    		this._div.innerHTML = '<h4>Información de UGA</h4>' +  (props ?
+    			'<b>' +'Clave de UGA: '+'</b>' +  props.clave_uga  +'<br> <b>Área: </b>'+ props.area+' m<sup>2</sup><br>'+
           '<b>Área de intersección: </b>'+ props.area_interseccion+ ' m<sup>2</sup><br>'+
-          '<b>Porcentaje de intersección: </b>'+props.porcentaje_interseccion +' %'
-    			: 'Coloque el cursor sobre el AGEB');
+          '<b>Porcentaje de intersección: </b>'+props.porcentaje_interseccion + ' %<br>'+
+          '<b>Lineamientos: </b>'+props.lineamiento_uga
+    			: 'Coloque el cursor sobre la UGA');
     	};
 
     	info.addTo(map);
@@ -393,8 +394,6 @@ height: 100%;
 
   var geoObject = JSON.parse(JSON.stringify(data));
 
-  console.log(geoObject.features[2].properties.cvegeo);
-  console.log(geoObject.features.length);
 
   var limite = Number(geoObject.features.length);
 
