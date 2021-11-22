@@ -15,10 +15,10 @@ sudo -i -u postgres
 psql
 ```
 
-Y crear un nuevo usuariocon su respectiva contraseña:
+Y crear un nuevo usuario con su respectiva contraseña:
 
 ```
-CREATE ROLE fidel LOGIN SUPERUSER PASSWORD 'x';
+CREATE ROLE fidel LOGIN SUPERUSER PASSWORD 'fidel_pw';
 ```
 
 Para crear la base de datos entrar a psql o PGAdmin con el usuario recien creado y correr el siguiente código SQL:
