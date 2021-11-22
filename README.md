@@ -43,7 +43,7 @@ En caso de haber creado un ambiente virtual de python primero hay que activar el
 source venv/bin/activate
 ```
 
-Para instalar las bibliotecas necesarias para esta aplicación correr el siguiente comando:
+Para instalar las bibliotecas necesarias para esta aplicación, correr el siguiente comando:
 
 ```
 pip3 install reuirements.txt
