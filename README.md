@@ -30,7 +30,9 @@ CREATE DATABASE dbagebsyucatan;
 El paso siguiente es subir los datos de un shapefile y dos csvs, para lo cual en PGadmin conectarse a la base de datos dbagebsyucatan con el usuario recien creado, abrir la herramienta de query y cargar y correr los siguientes archivos con código sql:
 
 yucAgebsAppRest/data/yucAgebs/dbagebsyucatan.sql
+
 yucAgebsAppRest/data/yucConevalMun/yuc_coneval.sql
+
 yucAgebsAppRest/data/yucMunicipios/tbmuninicipiosyucatan.sql
 
 ## Instalación de bibliotecas de python
