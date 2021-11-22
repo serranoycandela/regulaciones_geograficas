@@ -46,7 +46,7 @@ source venv/bin/activate
 Para instalar las bibliotecas necesarias para esta aplicación, correr el siguiente comando:
 
 ```
-pip3 install reuirements.txt
+pip3 install requirements.txt
 ```
 
 
