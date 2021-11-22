@@ -78,3 +78,7 @@ python3 app.py
 Para usar la aplicación abrir el siguiente url en un navegador:
 
 http://127.0.0.1:5000/inicio
+
+
+
+<img src="cliente-png" width="300px">
