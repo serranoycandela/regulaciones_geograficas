@@ -67,11 +67,7 @@ cd yucAgebsAppRest
 python3 app.py
 ```
 
-Esto expondrá un API en el puerto 4000, se puede comprobar su funcionamiento abriendo en un navegador, el siguiente url:
-
-```
-localhost:4000/fomix/api/v0.1/municipios/coneval/2010/nopob_novul
-```
+Esto expondrá un API en el puerto 4000
 
 ## Activar el app del cliente para browser
 
