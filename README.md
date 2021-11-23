@@ -33,11 +33,17 @@ El paso siguiente es subir los datos de un shapefile en PGadmin, para lo cual se
 yucAgebsAppRest/data/yucMunicipios/ugas.geojson
 ```
 
-Conectarse a Postgis con el usuario 
+Desde QGIS con la capa abirta conectarse a Postgis con el usuario y contraseña generados anteriormente. Abrir el menu BDManager de QGIS, seleccionar la conección a Postgis e importar la capa ugas.geojson directamante a Postgis.
 
 ## Instalación de bibliotecas de python
 
-En caso de haber creado un ambiente virtual de python primero hay que activar el ambiente virtual con el siguiente comando:
+Crear un ambiente virtual de Python con el siguiente comando:
+
+```
+virtualenv venv
+```
+
+Activar el ambiente virtual con el siguiente comando:
 
 ```
 source venv/bin/activate

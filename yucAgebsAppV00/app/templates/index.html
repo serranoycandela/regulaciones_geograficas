@@ -54,8 +54,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Load plotly.js into the DOM -->
-  	<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 
     <script src="static/js/bundle.js"></script>
 
@@ -104,26 +102,27 @@ height: 100%;
           
       </div>
   </div>
-
+  
   <div id="map" class="sidebar-map"></div>
 
   <script>
+  
   // Add the following code if you want the name of the file appear on select
   $(".custom-file-input").on("change", function() {
     var fileName = $(this).val().split("\\").pop();
     $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
   });
 
-  $(document).ready(function() {
+  // $(document).ready(function() {
 
-    const $valueSpan = $('.valueSpan');
-    const $value = $('#slider11');
-    $valueSpan.html($value.val());
-    $value.on('input change', () => {
+  //   const $valueSpan = $('.valueSpan');
+  //   const $value = $('#slider11');
+  //   $valueSpan.html($value.val());
+  //   $value.on('input change', () => {
 
-      $valueSpan.html($value.val());
-    });
-  });
+  //     $valueSpan.html($value.val());
+  //   });
+  // });
   </script>
 
 <script type="text/javascript">
@@ -141,10 +140,6 @@ height: 100%;
       attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>',
       maxZoom: 18
     }).addTo(map);
-
-  // add a marker in the given location
-  L.marker(center).addTo(map);
-
   // Initialise the FeatureGroup to store editable layers
   var editableLayers = new L.FeatureGroup();
   map.addLayer(editableLayers);
@@ -163,10 +158,11 @@ height: 100%;
         }
       },
       // disable toolbar item by setting it to false
-      polyline: true,
+      polyline: false,
       circle: false, // Turns off this drawing tool
-      rectangle: true,
-      marker: true,
+      rectangle: false,
+      marker: false,
+      circlemarker: false,
       }
   };
 
@@ -176,18 +172,59 @@ height: 100%;
 
   var editableLayers = new L.FeatureGroup();
   map.addLayer(editableLayers);
-  map.on('draw:created', function(e) {
-    var type = e.layerType,
-      layer = e.layer;
 
-    if (type === 'marker') {
-      layer.bindPopup('A popup!');
+  var info = L.control();
+      
+      
+  info.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'info');
+    this.update();
+    return this._div;
+  };
+  info.update = function (props) {
+    		this._div.innerHTML = '<h4>Información de UGA</h4>' +  (props ?
+    			'<b>' +'Clave de UGA: '+'</b>' +  props.clave_uga  +'<br> <b>Área: </b>'+ props.area+' m<sup>2</sup><br>'+
+          '<b>Área de intersección: </b>'+ props.area_interseccion+ ' m<sup>2</sup><br>'+
+          '<b>Porcentaje de intersección: </b>'+props.porcentaje_interseccion + ' %<br>'
+    			: 'Coloque el cursor sobre la UGA');
+    	};
+  info.addTo(map);
+
+  function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+      weight: 5,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
     }
 
+    info.update(layer.feature.properties);
+  }
+
+
+  function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+  }
+
+  
+  
+  map.on('draw:created', function(e) {
+    
+    layer = e.layer;
+    map.eachLayer(function(l) {
+      if (l instanceof L.Polygon){
+        map.removeLayer(l);
+      } 
+    });
+    
     editableLayers.addLayer(layer);
-
     var geojson= layer.toGeoJSON()
-
     var js_data = JSON.stringify({'type': 'Polygon','coordinates': geojson.geometry.coordinates});
     console.log(js_data);
     var url = "http://127.0.0.1:4000/fomix/api/v0.1/interseccion/" + encodeURIComponent(js_data);
@@ -201,65 +238,21 @@ height: 100%;
         },
         mode: "cors"
     }
-
-    
-
     // Cargamos el GeoJSON del servicio REST
     $.getJSON(url, function(data) {
-      // control that shows state info on hover
-    	var info = L.control();
-
-    	info.onAdd = function (map) {
-    		this._div = L.DomUtil.create('div', 'info');
-    		this.update();
-    		return this._div;
-    	};
-
-    	info.update = function (props) {
-    		this._div.innerHTML = '<h4>Información de UGA</h4>' +  (props ?
-    			'<b>' +'Clave de UGA: '+'</b>' +  props.clave_uga  +'<br> <b>Área: </b>'+ props.area+' m<sup>2</sup><br>'+
-          '<b>Área de intersección: </b>'+ props.area_interseccion+ ' m<sup>2</sup><br>'+
-          '<b>Porcentaje de intersección: </b>'+props.porcentaje_interseccion + ' %<br>'
-    			: 'Coloque el cursor sobre la UGA');
-    	};
-
-    	info.addTo(map);
-
-
-    	function highlightFeature(e) {
-    		var layer = e.target;
-
-    		layer.setStyle({
-    			weight: 5,
-    			color: '#666',
-    			dashArray: '',
-    			fillOpacity: 0.7
-    		});
-
-    		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-    			layer.bringToFront();
-    		}
-
-    		info.update(layer.feature.properties);
-    	}
-
-      	function resetHighlight(e) {
-      		geojson.resetStyle(e.target);
-      		info.update();
-      	}
-
-      	function zoomToFeature(e) {
-      		map.fitBounds(e.target.getBounds());
-      	}
-
-      	function onEachFeature(feature, layer) {
-      		layer.on({
-      			mouseover: highlightFeature,
-      			mouseout: resetHighlight,
-      			click: zoomToFeature
-      		});
-      	}
+        function resetHighlight(e) {
+          geojson.resetStyle(e.target);
+          info.update();
+        }
+        function onEachFeature(feature, layer) {
+          layer.on({
+            mouseover: highlightFeature,
+            mouseout: resetHighlight,
+            click: zoomToFeature
+          });
+        }
         // L.geoJson function is used to parse geojson file and load on to map
+
         var geojson= L.geoJson(data, {onEachFeature: onEachFeature}).addTo(map);
 
         var geoObject = JSON.parse(JSON.stringify(data));
@@ -281,7 +274,7 @@ height: 100%;
 
 
   var sidebar = L.control.sidebar('sidebar', {position: 'left'}).addTo(map);
-
+  sidebar.open("lineamientos");
   </script>
 
 
