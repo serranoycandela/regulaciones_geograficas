@@ -33,7 +33,7 @@ El paso siguiente es subir los datos de un shapefile en PGadmin, para lo cual se
 yucAgebsAppRest/data/yucMunicipios/ugas.geojson
 ```
 
-Desde QGIS con la capa abirta conectarse a Postgis con el usuario y contraseña generados anteriormente. Abrir el menu BDManager de QGIS, seleccionar la conección a Postgis e importar la capa ugas.geojson directamante a Postgis.
+Desde QGIS con la capa abierta conectarse a Postgis con el usuario y contraseña generados anteriormente. Abrir el menu BDManager de QGIS, seleccionar la conección a Postgis e importar la capa ugas.geojson directamante a Postgis.
 
 ## Instalación de bibliotecas de python
 
