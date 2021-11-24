@@ -4,3 +4,5 @@ sqlalchemy
 geoalchemy2
 shapely
 geopandas
+utm_zone
+geojson

@@ -183,9 +183,10 @@ height: 100%;
   };
   info.update = function (props) {
     		this._div.innerHTML = '<h4>Información de UGA</h4>' +  (props ?
-    			'<b>' +'Clave de UGA: '+'</b>' +  props.clave_uga  +'<br> <b>Área: </b>'+ props.area+' m<sup>2</sup><br>'+
-          '<b>Área de intersección: </b>'+ props.area_interseccion+ ' m<sup>2</sup><br>'+
-          '<b>Porcentaje de intersección: </b>'+props.porcentaje_interseccion + ' %<br>'
+    			'<b>' +'Clave de UGA: '+'</b>' +  props.clave_uga  +'<br> <b>Área del polígono: </b>'+ props.area_poligono+' ha<br>'+
+          '<b>Área del la UGA: </b>'+ props.area_uga+' ha<br>'+
+          '<b>Área de intersección: </b>'+ props.area_interseccion+ ' ha<br>'+
+          '<b>Porcentaje del polígono: </b>'+props.porcentaje_interseccion + ' %<br>'
     			: 'Coloque el cursor sobre la UGA');
     	};
   info.addTo(map);
@@ -263,7 +264,7 @@ height: 100%;
         var html_interseccion = "<br>Al polígono le aplican las siguientes UGAS<br>";
         for (var i = 0; i < limite; i ++) {
           html_interseccion += "<br><b>Clave UGA: </b>"+ geoObject.features[i].properties.clave_uga;
-          html_interseccion += "<br><b>Área de intersección: </b>"+ geoObject.features[i].properties.area;
+          // html_interseccion += "<br><b>Área de intersección: </b>"+ geoObject.features[i].properties.area;
           html_interseccion += "<br><b>Lineamientos: </b>"+geoObject.features[i].properties.lineamiento_uga+"<br>";
         }
         document.getElementById('myDiv').innerHTML=html_interseccion;
