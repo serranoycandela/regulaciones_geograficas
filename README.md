@@ -30,7 +30,7 @@ CREATE DATABASE dbagebsyucatan;
 El paso siguiente es subir los datos de un shapefile en PGadmin, para lo cual se puede abrir en QGIS la capa geográfica:
 
 ```
-yucAgebsAppRest/data/yucMunicipios/ugas.geojson
+rest/data/yucMunicipios/ugas.geojson
 ```
 
 Desde QGIS con la capa abierta conectarse a Postgis con el usuario y contraseña generados anteriormente. Abrir el menu BDManager de QGIS, seleccionar la conección a Postgis e importar la capa ugas.geojson directamante a Postgis.
@@ -63,7 +63,7 @@ Para activar el servicio REST que calcula las intersecciones y devuelve un geojs
 
 ```
 source venv/bin/activate
-cd yucAgebsAppRest
+cd rest
 python3 app.py
 ```
 
@@ -71,11 +71,11 @@ Esto expondrá un API en el puerto 4000
 
 ## Activar el app del cliente para browser
 
-Para iniciar la aplicación que consumirá el servicio REST, en una nueva consola, activar el ambiente virtual, entrar a la carpeta yucAgebsAppV00 y correr app.py:
+Para iniciar la aplicación que consumirá el servicio REST, en una nueva consola, activar el ambiente virtual, entrar a la carpeta client y correr app.py:
 
 ```
 source venv/bin/activate
-cd yucAgebsAppV00
+cd client
 python3 app.py
 ```
 
