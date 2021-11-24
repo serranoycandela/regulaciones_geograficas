@@ -261,10 +261,12 @@ height: 100%;
 
         var limite = Number(geoObject.features.length);
 
-        var html_interseccion = "<br>Al polígono le aplican las siguientes UGAS<br>";
+        var html_interseccion = "<br><b>Área del polígono: </b>"+geoObject.features[0].properties.area_poligono+" ha";
+        html_interseccion += "<br><br><b>UGAS:</b><br>";
         for (var i = 0; i < limite; i ++) {
           html_interseccion += "<br><b>Clave UGA: </b>"+ geoObject.features[i].properties.clave_uga;
-          // html_interseccion += "<br><b>Área de intersección: </b>"+ geoObject.features[i].properties.area;
+          html_interseccion += "<br><b>Área de intersección: </b>"+ geoObject.features[i].properties.area_interseccion+" ha";
+          html_interseccion += "<br><b>Porcentaje del polígono: </b>"+ geoObject.features[i].properties.porcentaje_interseccion+" %";
           html_interseccion += "<br><b>Lineamientos: </b>"+geoObject.features[i].properties.lineamiento_uga+"<br>";
         }
         document.getElementById('myDiv').innerHTML=html_interseccion;
